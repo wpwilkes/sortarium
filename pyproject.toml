@@ -2,8 +2,71 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[tool.coverage.run]
-source = ["bsa"]
+[project]
+name = "sortarium"
+version = "0.0.1"
+description = "A Python laboratory for sorting algorithms."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+authors = [{ name = "Wesley Wilkes" }]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/wpwilkes/sortarium"
+Repository = "https://github.com/wpwilkes/sortarium"
+Issues = "https://github.com/wpwilkes/sortarium/issues"
+
+[project.optional-dependencies]
+dev = [
+    "build",
+    "pytest",
+    "pytest-cov",
+    "hypothesis",
+    "ruff",
+    "mypy",
+    "pre-commit",
+    "twine",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
-pythonpath = ['.']
+testpaths = ["tests"]
+addopts = "-ra"
+strict_markers = true
+
+[tool.coverage.run]
+source = ["sortarium"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+precision = 2
+fail_under = 95
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E4",  # Import errors
+    "E7",  # Statement errors
+    "E9",  # Syntax errors
+    "F",   # Pyflakes
+    "I",   # Import sorting
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_configs = true
+warn_return_any = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true

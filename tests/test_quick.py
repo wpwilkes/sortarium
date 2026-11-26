@@ -1,20 +1,23 @@
-"""
-Test suite for the quick sort algorithm.
-"""
+"""Quicksort partition and recursion regressions."""
 
-import unittest
+import pytest
 
-import bsa
+from sortarium import quick_sort
 
 
-class TestQuickSort(unittest.TestCase):
-
-    def test_quick_sort(self):
-        seq = [2, 3, 1]
-        sorted_seq = bsa.quick_sort(sequence=seq, inplace=False)
-        seq.sort()
-        self.assertTrue(sorted_seq == seq)
-
-
-if __name__ == "__main__":
-    unittest.main()
+@pytest.mark.parametrize("reverse", [False, True])
+@pytest.mark.parametrize(
+    "data",
+    [
+        list(range(3000)),
+        list(range(3000, 0, -1)),
+        [1] * 3000,
+        [i % 5 for i in range(3000)],
+        list(range(1500)) + list(range(1500, 0, -1)),
+    ],
+    ids=["sorted", "reversed", "equal", "duplicates", "organ-pipe"],
+)
+def test_large_inputs(data, reverse):
+    assert quick_sort(data, reverse=reverse, inplace=False) == sorted(
+        data, reverse=reverse
+    )

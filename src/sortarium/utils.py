@@ -3,11 +3,11 @@ Implementation of various utilities.
 """
 
 from abc import ABCMeta, abstractmethod
-from typing import Any, MutableSequence, TypeVar
+from collections.abc import MutableSequence
+from typing import Any, TypeVar
 
 
 class _Comparable(metaclass=ABCMeta):
-
     @abstractmethod
     def __lt__(self, other: Any) -> bool:
         pass
